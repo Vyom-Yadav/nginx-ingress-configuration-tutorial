@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-ingress-tut
+  labels:
+    app: nginx-ingress-tut
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-ingress-tut
+  template:
+    metadata:
+      labels:
+        app: nginx-ingress-tut
+    spec:
+      containers:
+        - name: nginx-ingress-tut
+          image: yvyom/nginx-ingress-configuration-tutorial:0.0.1-SNAPSHOT
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-ingress-tut-service
+spec:
+  selector:
+    app: nginx-ingress-tut
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+

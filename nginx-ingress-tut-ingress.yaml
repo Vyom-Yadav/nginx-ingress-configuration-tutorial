@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /link2/link3/
+    nginx.ingress.kubernetes.io/use-regex: "true"
+  name: tut-ingress
+  namespace: default
+spec:
+  rules:
+    - host: tutorial.com
+      http:
+        paths:
+          - path: /link1/
+            pathType: Prefix
+            backend:
+              service:
+                name: nginx-ingress-tut-service
+                port:
+                  number: 8080
